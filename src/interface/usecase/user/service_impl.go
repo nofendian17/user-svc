@@ -53,6 +53,11 @@ func (u *userService) Login(ctx context.Context, request *rpcUser.LoginRequest) 
 		return nil, err
 	}
 
+	if !user.IsActive {
+		err = helper.NewError(constant.CodeProcessingError, "user not active")
+		return nil, err
+	}
+
 	token, err := u.auth.GenerateToken(user)
 	if err != nil {
 		err = helper.NewError(constant.CodeInternalServerError, "failed generate token")
