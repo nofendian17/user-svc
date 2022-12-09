@@ -2,9 +2,10 @@ package config
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
-	"io"
+	"github.com/spf13/viper"
+	"log"
 	"os"
+	"strings"
 )
 
 type DefaultConfig struct {
@@ -57,22 +58,36 @@ func InitConfig() *DefaultConfig {
 }
 
 func loadFile() *DefaultConfig {
-	file, err := os.Open("./resources/config.yaml")
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("./resources")
+	err := viper.ReadInConfig()
 	if err != nil {
-		panic(err)
+		panic("Couldn't load configuration, cannot start. Terminating. Error: " + err.Error())
 	}
-
-	b, err := io.ReadAll(file)
-	if err != nil {
-		panic(err)
+	log.Println("Config loaded successfully...")
+	log.Println("Getting environment variables...")
+	for _, k := range viper.AllKeys() {
+		value := viper.GetString(k)
+		if strings.HasPrefix(value, "${") && strings.HasSuffix(value, "}") {
+			viper.Set(k, getEnvOrPanic(strings.TrimSuffix(strings.TrimPrefix(value, "${"), "}")))
+		}
 	}
 
 	appConfig := DefaultConfig{}
-	err = yaml.Unmarshal(b, &appConfig)
+	err = viper.Unmarshal(&appConfig)
 	if err != nil {
 		panic(err)
 	}
 	return &appConfig
+}
+
+func getEnvOrPanic(env string) string {
+	res := os.Getenv(env)
+	if len(res) == 0 {
+		panic("Mandatory env variable not found:" + env)
+	}
+	return res
 }
 
 func (c *AppsConfig) AppPort() string {
