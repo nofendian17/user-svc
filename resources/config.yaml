@@ -21,7 +21,7 @@ cache:
   host: ${REDIS_HOST}
   port: ${REDIS_PORT}
   db: 0
-  password: ${REDIS_PASSWORD}
+  password: ""
   poolSize: 0
   defaultTTL: 24 #hour
 
