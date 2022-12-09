@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package user;
+option  go_package = "authorization-svc/src/shared/grpc/user";
+
+service UserService {
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc Refresh(RefreshRequest) returns (RefreshResponse) {}
+  rpc User(UserRequest) returns (UserResponse) {}
+}
+
+message ErrorResponse {
+  string message = 1;
+  string code = 2;
+}
+
+message TokenData {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message UserData {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string password = 4;
+  bool is_active = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string confirm_password = 4;
+}
+
+message RegisterResponse {
+  string message = 1;
+  string code = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string code = 1;
+  string message = 2;
+  TokenData data = 3;
+}
+
+message RefreshRequest {
+  string refresh_token = 1;
+}
+
+message RefreshResponse {
+  string code = 1;
+  string message = 2;
+  TokenData data = 3;
+}
+
+message UserRequest {
+  string access_token = 1;
+}
+
+message UserResponse {
+  string message = 1;
+  string code = 2;
+  UserData data = 3;
+}

@@ -1,0 +1,14 @@
+mode: atomic
+auth-svc/src/infrastructure/psql/user/repository.go:14.67,16.23 2 8
+auth-svc/src/infrastructure/psql/user/repository.go:19.2,19.10 1 7
+auth-svc/src/infrastructure/psql/user/repository.go:16.23,17.47 1 1
+auth-svc/src/infrastructure/psql/user/repository.go:22.72,27.2 4 2
+auth-svc/src/infrastructure/psql/user/repository.go:29.79,34.2 4 2
+auth-svc/src/infrastructure/psql/user/repository.go:36.85,41.2 4 2
+auth-svc/src/infrastructure/psql/user/repository.go:43.54,56.2 11 2
+auth-svc/src/infrastructure/psql/user/repository.go:58.79,70.16 10 2
+auth-svc/src/infrastructure/psql/user/repository.go:74.2,76.15 2 1
+auth-svc/src/infrastructure/psql/user/repository.go:70.16,72.3 1 1
+auth-svc/src/infrastructure/psql/user/repository.go:79.49,86.16 6 2
+auth-svc/src/infrastructure/psql/user/repository.go:90.2,90.12 1 1
+auth-svc/src/infrastructure/psql/user/repository.go:86.16,88.3 1 1

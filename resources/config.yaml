@@ -1,0 +1,34 @@
+apps:
+  name: "user"
+  version: "1.0.0"
+  address: "127.0.0.1"
+  port: 3000
+  grpcPort: 3030
+  debug: true
+
+database:
+  host: "localhost"
+  username: "root"
+  name: "user_svc"
+  password: "Password123"
+  schema: "users"
+  port: 5432
+  maxIdleConn : 5
+  maxOpenConn : 30
+
+cache:
+  debug: false
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: ""
+  poolSize: 0
+  defaultTTL: 24 #hour
+
+
+jwt:
+  accessSecretKey: "secret12345"
+  refreshSecretKey: "someone12345"
+  issuer: "authorization-svc"
+  accessExpirationMinute: 2
+  refreshExpirationMinute: 60
