@@ -49,9 +49,9 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 WORKDIR /app/user-svc
 
 EXPOSE 3000
-EXPOSE 3030
+#EXPOSE 3030
 
-CMD ["/app/user-svc/user-svc", "grpc"]
+#CMD ["/app/user-svc/user-svc", "grpc"]
 CMD ["/app/user-svc/user-svc", "rest"]
 
 
