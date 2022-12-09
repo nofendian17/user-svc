@@ -12,16 +12,16 @@ database:
   name: ${DATABASE_NAME}
   password: ${DATABASE_PASSWORD}
   schema: ${DATABASE_SCHEMA}
-  port: 5432
+  port: ${DATABASE_PORT}
   maxIdleConn : 5
   maxOpenConn : 30
 
 cache:
   debug: false
-  host: "localhost"
-  port: 6379
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}
   db: 0
-  password: ""
+  password: ${REDIS_PASSWORD}
   poolSize: 0
   defaultTTL: 24 #hour
 
