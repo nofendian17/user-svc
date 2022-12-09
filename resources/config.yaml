@@ -7,11 +7,11 @@ apps:
   debug: true
 
 database:
-  host: "localhost"
-  username: "root"
-  name: "user_svc"
-  password: "Password123"
-  schema: "users"
+  host: ${DATABASE_HOST}
+  username: ${DATABASE_USER}
+  name: ${DATABASE_NAME}
+  password: ${DATABASE_PASSWORD}
+  schema: ${DATABASE_SCHEMA}
   port: 5432
   maxIdleConn : 5
   maxOpenConn : 30
