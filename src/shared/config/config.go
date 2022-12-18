@@ -16,12 +16,11 @@ type DefaultConfig struct {
 }
 
 type AppsConfig struct {
-	Name     string `yaml:"name"`
-	Version  string `yaml:"version"`
-	Address  string `yaml:"address"`
-	Port     int    `yaml:"port"`
-	GRPCPort int    `yaml:"grpcPort"`
-	Debug    bool   `yaml:"debug"`
+	Name    string `yaml:"name"`
+	Version string `yaml:"version"`
+	Address string `yaml:"address"`
+	Port    int    `yaml:"port"`
+	Debug   bool   `yaml:"debug"`
 }
 
 type DatabaseConfig struct {
@@ -92,10 +91,6 @@ func getEnvOrPanic(env string) string {
 
 func (c *AppsConfig) AppPort() string {
 	return fmt.Sprintf(":%v", c.Port)
-}
-
-func (c *AppsConfig) GrpcPort() string {
-	return fmt.Sprintf(":%v", c.GRPCPort)
 }
 
 func (c *DefaultConfig) IsDebugMode() bool {

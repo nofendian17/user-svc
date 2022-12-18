@@ -15,7 +15,6 @@ import (
 func StartHttpServer(co *container.Container, listener net.Listener) error {
 	//-- construct echo
 	e := echo.New()
-	e.Debug = true
 	InitMiddleware(e)
 
 	// setup Handler
@@ -25,7 +24,7 @@ func StartHttpServer(co *container.Container, listener net.Listener) error {
 	SetupRouter(e, handler)
 
 	// start server
-
+	log.Println("starting HTTP server... " + listener.Addr().String())
 	errServe := make(chan error)
 	go func() {
 		if err := e.Server.Serve(listener); err != nil {
