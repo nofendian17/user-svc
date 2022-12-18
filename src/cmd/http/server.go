@@ -4,9 +4,10 @@ import (
 	"auth-svc/src/interface/container"
 	"auth-svc/src/interface/http"
 	"auth-svc/src/shared/config"
+	"net"
 )
 
-func Start() {
+func Start(listener net.Listener) error {
 
 	//-- config file and port
 	cfg := config.InitConfig()
@@ -15,6 +16,7 @@ func Start() {
 	co := container.Setup(cfg)
 
 	// start server http
-	http.StartHttpServer(co, cfg.Apps)
+	err := http.StartHttpServer(co, listener)
 
+	return err
 }

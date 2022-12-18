@@ -2,7 +2,6 @@ package grpc
 
 import (
 	"auth-svc/src/interface/container"
-	"auth-svc/src/shared/config"
 	rpcUser "auth-svc/src/shared/grpc/user"
 	"context"
 	"google.golang.org/grpc"
@@ -12,18 +11,14 @@ import (
 	"os/signal"
 )
 
-func RunServer(ctx context.Context, container *container.Container, cfg *config.AppsConfig) error {
-	listen, err := net.Listen("tcp", cfg.GrpcPort())
-	if err != nil {
-		return err
-	}
+func RunServer(ctx context.Context, container *container.Container, listener net.Listener) error {
 
 	handler := SetupHandlers(container)
 	// register service
 	server := grpc.NewServer()
 	// register server
 	rpcUser.RegisterUserServiceServer(server, handler.userHandler)
-
+	//
 	// graceful shutdown
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -39,6 +34,6 @@ func RunServer(ctx context.Context, container *container.Container, cfg *config.
 	}()
 
 	// start gRPC server
-	log.Println("starting gRPC server... " + cfg.GrpcPort())
-	return server.Serve(listen)
+	log.Println("starting gRPC server... " + listener.Addr().String())
+	return server.Serve(listener)
 }

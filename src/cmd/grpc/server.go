@@ -5,10 +5,10 @@ import (
 	"auth-svc/src/interface/grpc"
 	"auth-svc/src/shared/config"
 	"context"
-	"fmt"
+	"net"
 )
 
-func Start() {
+func Start(listener net.Listener) error {
 
 	//-- config file and port
 	cfg := config.InitConfig()
@@ -17,8 +17,7 @@ func Start() {
 	co := container.Setup(cfg)
 
 	// start server grpc
-	err := grpc.RunServer(context.Background(), co, cfg.Apps)
-	if err != nil {
-		fmt.Printf("error %s", err.Error())
-	}
+	err := grpc.RunServer(context.Background(), co, listener)
+
+	return err
 }

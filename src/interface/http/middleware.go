@@ -1,8 +1,6 @@
 package http
 
 import (
-	"auth-svc/src/interface/container"
-	"auth-svc/src/shared/config"
 	"auth-svc/src/shared/constant"
 	rpcUser "auth-svc/src/shared/grpc/user"
 	"auth-svc/src/shared/helper"
@@ -12,7 +10,7 @@ import (
 	"net/http"
 )
 
-func InitMiddleware(e *echo.Echo, container *container.Container, cfg *config.AppsConfig) {
+func InitMiddleware(e *echo.Echo) {
 	// - setup cors
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},

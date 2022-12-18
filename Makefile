@@ -2,10 +2,8 @@ SHELL:=/bin/bash
 
 proto :
 	protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative src/shared/grpc/**/*.proto
-http :
-	go run main.go rest
-server :
-	go run main.go grpc
+run :
+	go run main.go
 lint :
 	golangci-lint run --print-issued-lines=false --exclude-use-default=false --enable=goimports  --enable=unconvert --enable=unparam --enable=gosec --timeout=2m
 test:
