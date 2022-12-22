@@ -36,7 +36,8 @@ go mod tidy && \
 go mod download && \
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -o user-svc
 
-RUN ls -al /app/user-svc/resources
+COPY  /app/user-svs/resource/config.example.yaml /app/user-svs/resource/config.yaml
+
 
 FROM scratch
 
@@ -47,8 +48,6 @@ COPY --from=builder /etc/timezone /etc/timezone
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
 WORKDIR /app/user-svc
-
-COPY  /app/user-svs/resource/config.example.yaml /app/user-svs/resource/config.yaml
 
 EXPOSE 3000
 #EXPOSE 3030
