@@ -48,7 +48,7 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
 WORKDIR /app/user-svc
 
-RUN --from=builder /app/user-svs/resource/config.example.yaml /app/user-svs/resource/config.yaml
+COPY --from=builder /app/user-svs/resource/config.example.yaml /app/user-svs/resource/config.yaml
 
 EXPOSE 3000
 #EXPOSE 3030
