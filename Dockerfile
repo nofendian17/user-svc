@@ -48,6 +48,8 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
 WORKDIR /app/user-svc
 
+RUN cp /app/user-svc/resource/config.exampe.yaml /app/user-svc/resource/config.yaml
+
 EXPOSE 3000
 #EXPOSE 3030
 
