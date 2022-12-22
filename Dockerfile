@@ -36,7 +36,7 @@ go mod tidy && \
 go mod download && \
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -o user-svc
 
-COPY  /app/user-svs/resource/config.example.yaml /app/user-svs/resource/config.yaml
+RUN  cp /app/user-svs/resource/config.example.yaml /app/user-svs/resource/config.yaml
 
 
 FROM scratch
