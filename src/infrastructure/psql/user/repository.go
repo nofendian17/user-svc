@@ -21,21 +21,21 @@ func NewRepository(database *psql.DatabaseClient) *userRepository {
 
 func (u *userRepository) FindByID(ID int64) (d domain.User, err error) {
 	qb := strings.Builder{}
-	qb.WriteString("SELECT id, username, email, password, is_active, created_at, updated_at FROM t_user WHERE id = $1")
+	qb.WriteString("SELECT id, username, email, password, is_active, created_at, updated_at FROM users WHERE id = $1")
 	err = u.database.Client.Get(&d, qb.String(), ID)
 	return
 }
 
 func (u *userRepository) FindByEmail(email string) (d domain.User, err error) {
 	qb := strings.Builder{}
-	qb.WriteString("SELECT id, username, email, password, is_active, created_at, updated_at FROM t_user WHERE email = $1")
+	qb.WriteString("SELECT id, username, email, password, is_active, created_at, updated_at FROM users WHERE email = $1")
 	err = u.database.Client.Get(&d, qb.String(), email)
 	return
 }
 
 func (u *userRepository) FindByUsername(username string) (d domain.User, err error) {
 	qb := strings.Builder{}
-	qb.WriteString("SELECT id, username, email, password, is_active, created_at, updated_at FROM t_user WHERE active = TRUE AND username = $1")
+	qb.WriteString("SELECT id, username, email, password, is_active, created_at, updated_at FROM users WHERE active = TRUE AND username = $1")
 	err = u.database.Client.Get(&d, qb.String(), username)
 	return
 }
@@ -44,7 +44,7 @@ func (u *userRepository) Create(d domain.User) error {
 	qb := strings.Builder{}
 	qb.WriteString("INSERT INTO ")
 	qb.WriteString(u.database.SchemaName())
-	qb.WriteString(".t_user ")
+	qb.WriteString(".users ")
 	qb.WriteString("(username, email, password, is_active, created_at) ")
 	qb.WriteString("VALUES ")
 	qb.WriteString("($1, $2, $3, $4, $5) ")
@@ -59,7 +59,7 @@ func (u *userRepository) Update(ID int64, d domain.User) (domain.User, error) {
 	qb := strings.Builder{}
 	qb.WriteString("UPDATE ")
 	qb.WriteString(u.database.SchemaName())
-	qb.WriteString(".t_user ")
+	qb.WriteString(".users ")
 	qb.WriteString("SET username = $1, email = $2, password = $3, is_active = $4 ")
 	qb.WriteString("WHERE id = $5 ")
 	qb.WriteString("RETURNING id")

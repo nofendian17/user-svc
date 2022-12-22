@@ -62,7 +62,7 @@ func (r *repositorySuite) TestValidate() {
 func (r *repositorySuite) TestFindByID() {
 	repo := NewRepository(&r.databaseClient)
 	//scenario: return error
-	r.mock.ExpectQuery("^SELECT (.+) FROM t_user").
+	r.mock.ExpectQuery("^SELECT (.+) FROM users").
 		WithArgs(0).
 		WillReturnError(errors.New("data not found"))
 
@@ -73,7 +73,7 @@ func (r *repositorySuite) TestFindByID() {
 	rows := sqlmock.NewRows([]string{"id", "username", "email"}).
 		AddRow(1, "test", "test@local")
 
-	r.mock.ExpectQuery("^SELECT (.+) FROM t_user").
+	r.mock.ExpectQuery("^SELECT (.+) FROM users").
 		WithArgs(1).
 		WillReturnRows(rows)
 
@@ -87,7 +87,7 @@ func (r *repositorySuite) TestFindByID() {
 func (r *repositorySuite) TestFindByEmail() {
 	repo := NewRepository(&r.databaseClient)
 	//scenario: return error
-	r.mock.ExpectQuery("^SELECT (.+) FROM t_user").
+	r.mock.ExpectQuery("^SELECT (.+) FROM users").
 		WithArgs("test@local").
 		WillReturnError(errors.New("data not found"))
 
@@ -98,7 +98,7 @@ func (r *repositorySuite) TestFindByEmail() {
 	rows := sqlmock.NewRows([]string{"id", "username", "email"}).
 		AddRow(1, "test", "test@local")
 
-	r.mock.ExpectQuery("^SELECT (.+) FROM t_user").
+	r.mock.ExpectQuery("^SELECT (.+) FROM users").
 		WithArgs("test@local").
 		WillReturnRows(rows)
 
@@ -113,7 +113,7 @@ func (r *repositorySuite) TestFindByEmail() {
 func (r *repositorySuite) TestFindByUsername() {
 	repo := NewRepository(&r.databaseClient)
 	//scenario: return error
-	r.mock.ExpectQuery("^SELECT (.+) FROM t_user").
+	r.mock.ExpectQuery("^SELECT (.+) FROM users").
 		WithArgs("test").
 		WillReturnError(errors.New("data not found"))
 
@@ -124,7 +124,7 @@ func (r *repositorySuite) TestFindByUsername() {
 	rows := sqlmock.NewRows([]string{"id", "username", "email"}).
 		AddRow(1, "test", "test@local")
 
-	r.mock.ExpectQuery("^SELECT (.+) FROM t_user").
+	r.mock.ExpectQuery("^SELECT (.+) FROM users").
 		WithArgs("test").
 		WillReturnRows(rows)
 
@@ -138,7 +138,7 @@ func (r *repositorySuite) TestFindByUsername() {
 
 func (r *repositorySuite) TestCreate() {
 	repo := NewRepository(&r.databaseClient)
-	query := "^INSERT (.+)t_user*"
+	query := "^INSERT (.+)users*"
 	//scenario: return error
 	r.mock.ExpectQuery(query).
 		WithArgs("test", "test@local", "secret", false, AnyTime{}).
@@ -167,7 +167,7 @@ func (r *repositorySuite) TestCreate() {
 
 func (r *repositorySuite) TestUpdate() {
 	repo := NewRepository(&r.databaseClient)
-	query := "^UPDATE (.+)t_user*"
+	query := "^UPDATE (.+)users*"
 
 	user := domain.User{
 		Username: "test",
