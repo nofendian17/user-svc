@@ -36,12 +36,11 @@ go mod tidy && \
 go mod download && \
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -o user-svc
 
-COPY resource/config.example.yaml resource/config.yaml
-
 
 FROM scratch
 
-COPY --from=builder /app/user-svc/resources    /app/user-svc/resources
+#COPY --from=builder /app/user-svc/resources    /app/user-svc/resources
+COPY --from=builder /app/user-svc/resources/config.example.yaml /app/user-svc/resources/config.yaml
 COPY --from=builder /app/user-svc/user-svc /app/user-svc/user-svc
 COPY --from=builder /etc/localtime /etc/localtime
 COPY --from=builder /etc/timezone /etc/timezone
