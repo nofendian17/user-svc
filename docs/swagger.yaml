@@ -1,0 +1,175 @@
+definitions:
+  user.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  user.LoginResponse:
+    properties:
+      code:
+        type: string
+      data:
+        $ref: '#/definitions/user.TokenData'
+      message:
+        type: string
+    type: object
+  user.RefreshRequest:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  user.RefreshResponse:
+    properties:
+      code:
+        type: string
+      data:
+        $ref: '#/definitions/user.TokenData'
+      message:
+        type: string
+    type: object
+  user.RegisterRequest:
+    properties:
+      confirm_password:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  user.RegisterResponse:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  user.TokenData:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  user.UserData:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      password:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+  user.UserResponse:
+    properties:
+      code:
+        type: string
+      data:
+        $ref: '#/definitions/user.UserData'
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/user/auth:
+    post:
+      consumes:
+      - application/json
+      description: Auth client with email and password
+      parameters:
+      - description: register request
+        in: body
+        name: Login
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.LoginResponse'
+      summary: Login client
+      tags:
+      - User
+  /v1/user/me:
+    get:
+      consumes:
+      - application/json
+      description: Get Auth client
+      parameters:
+      - description: With the bearer access_token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.UserResponse'
+      security:
+      - BearerAuth: []
+      summary: Get auth detail
+      tags:
+      - User
+  /v1/user/refresh:
+    post:
+      consumes:
+      - application/json
+      description: RefreshToken Auth client
+      parameters:
+      - description: refresh token request
+        in: body
+        name: Refresh
+        required: true
+        schema:
+          $ref: '#/definitions/user.RefreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.RefreshResponse'
+      summary: RefreshToken client
+      tags:
+      - User
+  /v1/user/register:
+    post:
+      consumes:
+      - application/json
+      description: Register client with email, username, password, retype_password
+      parameters:
+      - description: register request
+        in: body
+        name: Register
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.RegisterResponse'
+      summary: Register client
+      tags:
+      - User
+swagger: "2.0"

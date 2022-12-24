@@ -21,6 +21,15 @@ func newHttpHandler(service user.UserService) *userHttpHandler {
 	return h
 }
 
+// Register
+// @Summary     Register client
+// @Description Register client with email, username, password, retype_password
+// @Accept application/json
+// @Tags        User
+// @Produce     json
+// @Param  Register body rpcUser.RegisterRequest true "register request"
+// @Success     200 {object} rpcUser.RegisterResponse
+// @Router      /v1/user/register [post]
 func (h *userHttpHandler) Register(c echo.Context) error {
 	request := &rpcUser.RegisterRequest{}
 
@@ -59,6 +68,15 @@ func (h *userHttpHandler) Register(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
+// Login
+// @Summary     Login client
+// @Description Auth client with email and password
+// @Accept application/json
+// @Tags        User
+// @Produce     json
+// @Param  Login body rpcUser.LoginRequest true "register request"
+// @Success     200 {object} rpcUser.LoginResponse
+// @Router      /v1/user/auth [post]
 func (h *userHttpHandler) Login(c echo.Context) error {
 	request := &rpcUser.LoginRequest{}
 	if err := c.Bind(request); err != nil {
@@ -89,6 +107,15 @@ func (h *userHttpHandler) Login(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
+// Refresh
+// @Summary     RefreshToken client
+// @Description RefreshToken Auth client
+// @Accept application/json
+// @Tags        User
+// @Produce     json
+// @Param  Refresh body rpcUser.RefreshRequest true "refresh token request"
+// @Success     200 {object} rpcUser.RefreshResponse
+// @Router      /v1/user/refresh [post]
 func (h *userHttpHandler) Refresh(c echo.Context) error {
 	request := &rpcUser.RefreshRequest{}
 	if err := c.Bind(request); err != nil {
@@ -118,6 +145,16 @@ func (h *userHttpHandler) Refresh(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
+// User
+// @Summary     Get auth detail
+// @Description Get Auth client
+// @Accept application/json
+// @Tags        User
+// @Produce     json
+// @Param Authorization header string true "With the bearer access_token"
+// @Security BearerAuth
+// @Success     200 {object} rpcUser.UserResponse
+// @Router      /v1/user/me [get]
 func (h *userHttpHandler) User(c echo.Context) error {
 	request := &rpcUser.UserRequest{}
 	request.AccessToken = c.Request().Header.Get("Authorization")
