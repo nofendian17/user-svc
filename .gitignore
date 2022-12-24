@@ -1,1 +1,3 @@
 resources/config.yaml
+coverage.cov
+coverage.html

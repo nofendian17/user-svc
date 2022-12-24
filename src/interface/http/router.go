@@ -8,7 +8,7 @@ import (
 
 func SetupRouter(e *echo.Echo, h *handler) {
 	// health check
-	e.GET("/", func(e echo.Context) error {
+	e.GET("/health", func(e echo.Context) error {
 		return e.JSON(http.StatusOK, "services up and running... "+time.Now().Format(time.RFC3339))
 	})
 
